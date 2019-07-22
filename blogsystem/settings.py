@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # app注册
     'user',
+    'vedio_vip',
 ]
 
 MIDDLEWARE = [
