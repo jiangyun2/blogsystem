@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    用户注册
+    <h1>用户注册</h1>
+    <form action="" method="post">
+    {% csrf_token %}
+        <p><input type="text" name="username" maxlength="30" placeholder="请输入用户名"></p>
+        <p><input type="password" name="password" minlength="6" maxlength="30" placeholder="请输入密码"></p>
+        <p><input type="password" name="repeatpassword" minlength="6" maxlength="30" placeholder="请再次输入密码"></p>
+        <p><input type="email" name="email" placeholder="请输入邮箱"></p>
+        <p><input type="submit" value="注册"></p>
+    </form>
+    {%  if message %}
+        {{ message }}
+    {% endif %}
 {% endblock %}

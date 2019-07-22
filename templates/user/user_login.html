@@ -5,5 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    用户登录
+    <h1>用户登录</h1>
+    <form action="" method="post">
+    {% csrf_token %}
+        <p> <input type="text" name="username" maxlength="30" placeholder="请输入用户名"></p>
+        <p><input type="password" name="password" minlength="6" maxlength="30" placeholder="请输入密码"></p>
+        <p><input type="submit" value="登录"></p>
+    </form>
+    {%  if message %}
+        {{ message }}
+    {% endif %}
 {% endblock %}
