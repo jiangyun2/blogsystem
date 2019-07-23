@@ -1,0 +1,41 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}
+    我的博客
+{% endblock %}
+
+{% block body %}
+    <div style="width: 600px;margin: 100px auto">
+    <h3 style="margin: 0 auto">文章列表</h3>
+    <table width="400px">
+        <thead style="font-size:20px">
+            <tr>
+                <th>标题</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for blog in page.object_list %}
+            <tr>
+                <th><a href="{% url 'detialblog' blog.id %}">{{ blog.title }}</a></th>
+                <th><a href="{% url 'updateblog' blog.id %}">编辑</a> | <a href="{% url 'deleteblog' blog.id %}">删除 </a></th>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% if page.has_previous %}
+        <a href="{% url 'bloglist'%}?page={{ page.previous_page_number }}">上一页</a>
+    {% endif %}
+    {% for i in pa.page_range %}
+    {% if i != page.number %}
+        <a href="{% url 'bloglist'%}?page={{i}}">{{ i }}</a>
+    {% else %}
+        {{ i }}
+    {% endif %}
+    {% endfor %}
+     {% if page.has_next %}
+        <a href="{% url 'bloglist'%}?page={{ page.next_page_number }}">下一页</a>
+    {% endif %}
+        <a href="{% url 'bloglist'%}?page={{ pa.num_pages }}">末页</a>
+    </div>
+{% endblock %}

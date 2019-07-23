@@ -1,0 +1,14 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}
+    博客详情
+{% endblock %}
+
+{% block body %}
+
+    <h3>{{ blog.title }}</h3>
+    <p>{{ blog.content }}</p>
+    <p>{{ blog.createtime }}</p>
+    <p>{{ blog.lasttime }}</p>
+
+{% endblock %}

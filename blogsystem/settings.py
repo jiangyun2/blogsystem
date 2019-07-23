@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # app注册
     'user',
     'vedio_vip',
+    'blog',
 ]
 
 MIDDLEWARE = [
