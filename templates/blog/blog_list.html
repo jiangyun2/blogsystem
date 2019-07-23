@@ -18,7 +18,7 @@
         {% for blog in page.object_list %}
             <tr>
                 <th><a href="{% url 'detialblog' blog.id %}">{{ blog.title }}</a></th>
-                <th><a href="{% url 'updateblog' blog.id %}">编辑</a> | <a href="{% url 'deleteblog' blog.id %}">删除 </a></th>
+                <th><a href="{% url 'updateblog' blog.id %}?page={{ page.number }}">编辑</a> | <a href="{% url 'deleteblog' blog.id %}?page={{ page.number }}">删除 </a></th>
             </tr>
         {% endfor %}
     </tbody>
