@@ -12,6 +12,7 @@
             <tr>
                 <th>标题</th>
                 <th>操作</th>
+                <th>创建时间</th>
             </tr>
         </thead>
     <tbody>
@@ -19,6 +20,7 @@
             <tr>
                 <th><a href="{% url 'detialblog' blog.id %}">{{ blog.title }}</a></th>
                 <th><a href="{% url 'updateblog' blog.id %}?page={{ page.number }}">编辑</a> | <a href="{% url 'deleteblog' blog.id %}?page={{ page.number }}">删除 </a></th>
+                <th>{{ blog.createtime }}</th>
             </tr>
         {% endfor %}
     </tbody>
