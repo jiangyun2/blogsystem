@@ -51,7 +51,7 @@ class UserLogin(View):
             request.session['username'] = username
             # 设置30天后过期
             request.session.set_expiry(datetime.timedelta(days=30))
-            return redirect(reverse('user_index'))
+            return redirect(reverse('bloglist'))
         else:
             message = '账号或密码错误'
             return render(request, 'user/user_login.html', context={'message': message})

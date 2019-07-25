@@ -25,6 +25,7 @@
         {% endfor %}
     </tbody>
     </table>
+    <a href="{% url 'bloglist'%}?page=1">首页</a>
     {% if page.has_previous %}
         <a href="{% url 'bloglist'%}?page={{ page.previous_page_number }}">上一页</a>
     {% endif %}
