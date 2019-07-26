@@ -6,13 +6,21 @@ from user.models import BlogContent
 import datetime
 #导入分页及异常的模块
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-
+# 导入login_required
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return HttpResponse('blog_index')
 
 
-class AddBlog(View):
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, *args, **kwargs):
+        view = super(LoginRequiredMixin, cls).as_view(*args, **kwargs)
+        return login_required(view)
+
+
+class AddBlog(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'blog/blog_add.html')
 
@@ -28,6 +36,7 @@ class AddBlog(View):
         return redirect(reverse('bloglist'))
 
 
+@login_required
 def bloglist(request):
     allblog = BlogContent.objects.all()
     # print(allblog[::-1])
@@ -45,7 +54,7 @@ def bloglist(request):
     return render(request, 'blog/blog_list.html', context={'allblog': allblog, 'page': page, 'pa': pa})
 
 
-class UpdateBlog(View):
+class UpdateBlog(LoginRequiredMixin, View):
     def get(self, request, blog_id):
         # 通过id查询blog
         blog = BlogContent.objects.filter(id=blog_id).first()
@@ -64,12 +73,14 @@ class UpdateBlog(View):
         return redirect('/blog/list/?page={}'.format(page))
 
 
+@login_required
 def deleteblog(request, blog_id):
     page = request.GET.get('page')
     BlogContent.objects.filter(id=blog_id).delete()
     return redirect('/blog/list/?page={}'.format(page))
 
 
+@login_required
 def detialblog(request, blog_id):
     blog = BlogContent.objects.filter(id=blog_id).first()
     return render(request, 'blog/blog_detial.html', context={'blog': blog})

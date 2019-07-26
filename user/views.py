@@ -54,6 +54,7 @@ class UserLogin(View):
         message = ''
         username = request.POST.get('username')
         password = request.POST.get('password')
+        next_url = request.GET.get('next')
         # 验证账号密码
         # if BlogUser.objects.filter(username=username, password=password).first():
         # auth中的User
@@ -65,7 +66,10 @@ class UserLogin(View):
             # request.session['username'] = username
             # # 设置30天后过期
             # request.session.set_expiry(datetime.timedelta(days=30))
-            return redirect(reverse('bloglist'))
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect(reverse('bloglist'))
         else:
             message = '账号或密码错误'
             return render(request, 'user/user_login.html', context={'message': message})

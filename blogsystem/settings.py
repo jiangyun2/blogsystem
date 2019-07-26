@@ -138,3 +138,5 @@ STATICFILES_DIRS = [
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+LOGIN_URL = '/user/login'
