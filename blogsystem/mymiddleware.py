@@ -13,7 +13,11 @@ class Usermiddleware:
 
     def __call__(self, request):
         global currentuser
-        currentuser = request.session.get('username', '请登录')
+        # 获取当前用户
+        currentuser = request.user.username
+        if not currentuser:
+            currentuser = '请登录'
+        # currentuser = request.session.get('username', '请登录')
 
         response = self.get_response(request)
 
