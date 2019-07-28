@@ -7,7 +7,10 @@ import datetime
 #导入分页及异常的模块
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 # 导入login_required
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+# 导入相关模型
+from django.contrib.auth.models import User ,Permission, Group
+
 
 def index(request):
     return HttpResponse('blog_index')
@@ -38,6 +41,9 @@ class AddBlog(LoginRequiredMixin, View):
 
 @login_required
 def bloglist(request):
+    user = User.objects.filter(username='jiangyun').first()
+    permission = Permission.objects.filter(codename='add_blogcontent').first()
+    user.user_permissions.add(permission)
     allblog = BlogContent.objects.all()
     # print(allblog[::-1])
     # 倒序
@@ -80,7 +86,8 @@ def deleteblog(request, blog_id):
     return redirect('/blog/list/?page={}'.format(page))
 
 
-@login_required
+@permission_required('user.view_blogcontent')
+# @login_required
 def detialblog(request, blog_id):
     blog = BlogContent.objects.filter(id=blog_id).first()
     return render(request, 'blog/blog_detial.html', context={'blog': blog})
